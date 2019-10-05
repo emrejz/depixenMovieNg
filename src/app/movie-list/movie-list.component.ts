@@ -13,7 +13,11 @@ export class MovieListComponent implements OnInit {
   tryLoad: boolean = true;
 
   pageCount: number = 1;
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.movies.length === 0) {
+      this.getMovies();
+    }
+  }
   @HostListener("window:scroll", ["$event"])
   listeningScroll(event) {
     if (this.scrollCond()) {
