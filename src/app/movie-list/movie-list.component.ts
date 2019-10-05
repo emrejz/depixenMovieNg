@@ -1,6 +1,7 @@
 import { MovieService } from "./../services/movie/movie.service";
 import { Component, OnInit, HostListener } from "@angular/core";
 import { MovieInList } from "../models/movieInList";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-movie-list",
@@ -8,7 +9,7 @@ import { MovieInList } from "../models/movieInList";
   styleUrls: ["./movie-list.component.css"]
 })
 export class MovieListComponent implements OnInit {
-  constructor(private movieService: MovieService) {}
+  constructor(private movieService: MovieService, private router: Router) {}
   movies: MovieInList[] = [];
   tryLoad: boolean = true;
 
@@ -43,5 +44,8 @@ export class MovieListComponent implements OnInit {
       //   this.getMovies();
       // }
     });
+  }
+  goDetail(id) {
+    this.router.navigateByUrl("movie/" + id);
   }
 }
