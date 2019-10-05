@@ -11,7 +11,6 @@ import { Router } from "@angular/router";
 export class MovieListComponent implements OnInit {
   constructor(private movieService: MovieService, private router: Router) {}
   movies: MovieInList[] = [];
-  tryLoad: boolean = true;
 
   ngOnInit() {
     if (this.movieList.length === 0) {
@@ -28,10 +27,7 @@ export class MovieListComponent implements OnInit {
     return document.getElementById("movieList");
   }
   scrollCond(): boolean {
-    return (
-      window.innerHeight + window.scrollY >= this.movieListID.offsetHeight &&
-      this.tryLoad
-    );
+    return window.innerHeight + window.scrollY >= this.movieListID.offsetHeight;
   }
   get movieList(): MovieInList[] {
     return this.movieService.movies;
