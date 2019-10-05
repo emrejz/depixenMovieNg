@@ -1,3 +1,4 @@
+import { MovieInDetail } from "./../models/movieInDetail";
 import { MovieService } from "./../services/movie/movie.service";
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -12,11 +13,13 @@ export class MovieDetailComponent implements OnInit {
     private movieService: MovieService,
     private route: ActivatedRoute
   ) {}
-
+  movie: any = {};
   ngOnInit() {
     this.route.params.subscribe(params => {
       let id = params["id"];
-      this.movieService.getMovieDetail(id).subscribe(data => console.log(data));
+      this.movieService
+        .getMovieDetail(id)
+        .subscribe(data => (this.movie = data));
     });
   }
 }
