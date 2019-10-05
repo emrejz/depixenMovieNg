@@ -20,7 +20,7 @@ export class MovieListComponent implements OnInit {
       this.getMovies();
     }
   }
-  get movieListID(): object {
+  get movieListID(): any {
     return document.getElementById("movieList");
   }
   scrollCond(): boolean {
