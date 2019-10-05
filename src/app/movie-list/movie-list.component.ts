@@ -11,17 +11,13 @@ export class MovieListComponent implements OnInit {
   constructor(private movieService: MovieService) {}
   movies: MovieInList[] = [];
   tryLoad: boolean = true;
+  pageCount: number = 1;
   ngOnInit() {}
   @HostListener("window:scroll", ["$event"])
   listeningScroll(event) {
     let movieListTag = document.getElementById("movieList");
-    console.log(movieListTag.offsetHeight);
-    console.log("window.innerHeight", window.innerHeight);
-    console.log("window.window.scrollY", window.window.scrollY);
-    console.log(window.innerHeight + window.scrollY);
-
     if (
-      window.innerHeight + window.scrollY >= movieListTag.offsetHeight &&
+      window.innerHeight + window.scrollY + 300 >= movieListTag.offsetHeight &&
       this.tryLoad
     ) {
       this.getMovies();
@@ -29,7 +25,8 @@ export class MovieListComponent implements OnInit {
   }
   getMovies() {
     this.tryLoad = false;
-    this.movieService.getMovies().subscribe(data => {
+    this.pageCount++;
+    this.movieService.getMovies(this.pageCount).subscribe(data => {
       this.tryLoad = true;
       this.movies.push(...data["Search"]);
     });

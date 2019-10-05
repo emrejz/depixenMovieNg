@@ -6,8 +6,8 @@ import { HttpClient } from "@angular/common/http";
 })
 export class MovieService {
   constructor(private http: HttpClient) {}
-  apiUrl: string = "http://www.omdbapi.com/?s=game&type=movie&page=1";
-  getMovies() {
-    return this.http.get(this.apiUrl);
+  apiUrl: string = "http://www.omdbapi.com/?s=you&type=movie&page=";
+  getMovies(pageCount: number) {
+    return this.http.get(this.apiUrl + pageCount);
   }
 }
