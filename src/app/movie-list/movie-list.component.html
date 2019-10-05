@@ -1,1 +1,6 @@
 <button (click)="getMovies()">fetch</button>
+<ul id="movieList">
+  <li *ngFor="let movie of movies">
+    <div style="height: 300px; border: 1px solid black;">{{ movie.Title }}</div>
+  </li>
+</ul>
