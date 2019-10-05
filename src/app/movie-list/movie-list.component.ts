@@ -13,16 +13,15 @@ export class MovieListComponent implements OnInit {
   movies: MovieInList[] = [];
   tryLoad: boolean = true;
 
-  pageCount: number = 1;
   ngOnInit() {
-    if (this.movies.length === 0) {
-      this.getMovies();
+    if (this.movieList.length === 0) {
+      this.movieService.getMovies();
     }
   }
   @HostListener("window:scroll", ["$event"])
   listeningScroll(event) {
     if (this.scrollCond()) {
-      this.getMovies();
+      this.movieService.getMovies();
     }
   }
   get movieListID(): any {
@@ -30,20 +29,21 @@ export class MovieListComponent implements OnInit {
   }
   scrollCond(): boolean {
     return (
-      window.innerHeight + window.scrollY + 300 >=
-        this.movieListID.offsetHeight && this.tryLoad
+      window.innerHeight + window.scrollY >= this.movieListID.offsetHeight &&
+      this.tryLoad
     );
   }
-  getMovies() {
-    this.tryLoad = false;
-    this.pageCount++;
-    this.movieService.getMovies(this.pageCount).subscribe(data => {
-      this.tryLoad = true;
-      this.movies.push(...data["Search"]);
-      // if (window.innerWidth - document.documentElement.clientWidth == 0) {
-      //   this.getMovies();
-      // }
-    });
+  get movieList(): MovieInList[] {
+    return this.movieService.movies;
+    // this.tryLoad = false;
+    // this.pageCount++;
+    // this.movieService.getMovies(this.pageCount).subscribe(data => {
+    //   this.tryLoad = true;
+    //   this.movies.push(...data["Search"]);
+    //   // if (window.innerWidth - document.documentElement.clientWidth == 0) {
+    //   //   this.getMovies();
+    //   // }
+    // });
   }
   goDetail(id) {
     this.router.navigateByUrl("movie/" + id);
