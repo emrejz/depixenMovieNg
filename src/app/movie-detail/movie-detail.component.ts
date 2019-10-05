@@ -13,13 +13,13 @@ export class MovieDetailComponent implements OnInit {
     private movieService: MovieService,
     private route: ActivatedRoute
   ) {}
-  movie: any = {};
   ngOnInit() {
     this.route.params.subscribe(params => {
       let id = params["id"];
-      this.movieService
-        .getMovieDetail(id)
-        .subscribe(data => (this.movie = data));
+      this.movieService.getMovieDetail(id);
     });
+  }
+  get movie() {
+    return this.movieService.movieDetail;
   }
 }
