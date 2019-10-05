@@ -1,6 +1,33 @@
 <button (click)="getMovies()">fetch</button>
-<ul id="movieList">
-  <li *ngFor="let movie of movies">
-    <div style="height: 300px; border: 1px solid black;">{{ movie.Title }}</div>
-  </li>
-</ul>
+
+<div id="movieList" class="container mt-5">
+  <div class="row" style="justify-content: center;align-self: center;">
+    <div
+      *ngFor="let movie of movies"
+      class="mb-4"
+      style="width: 200px; margin: 14px"
+    >
+      <div class="card">
+        <h3
+          class="card-header text-center"
+          style="height: 130px; overflow: hidden; justify-content: center;align-items: center; display: flex;"
+        >
+          {{ movie.Title }}
+        </h3>
+
+        <img
+          style="height: 200px; width: 100%; display: block;"
+          src="{{ movie.Poster }}"
+          alt="Card image"
+        />
+        <div class="card-body text-center">
+          <p class="card-text">Year : {{ movie.Year }}<br /></p>
+        </div>
+
+        <div class="card-footer text-muted text-center">
+          <button class="btn btn-primary">Go Detail</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

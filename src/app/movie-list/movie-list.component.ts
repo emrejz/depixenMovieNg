@@ -11,17 +11,23 @@ export class MovieListComponent implements OnInit {
   constructor(private movieService: MovieService) {}
   movies: MovieInList[] = [];
   tryLoad: boolean = true;
+
   pageCount: number = 1;
   ngOnInit() {}
   @HostListener("window:scroll", ["$event"])
   listeningScroll(event) {
-    let movieListTag = document.getElementById("movieList");
-    if (
-      window.innerHeight + window.scrollY + 300 >= movieListTag.offsetHeight &&
-      this.tryLoad
-    ) {
+    if (this.scrollCond()) {
       this.getMovies();
     }
+  }
+  get movieListID(): object {
+    return document.getElementById("movieList");
+  }
+  scrollCond(): boolean {
+    return (
+      window.innerHeight + window.scrollY + 300 >=
+        this.movieListID.offsetHeight && this.tryLoad
+    );
   }
   getMovies() {
     this.tryLoad = false;
@@ -29,6 +35,9 @@ export class MovieListComponent implements OnInit {
     this.movieService.getMovies(this.pageCount).subscribe(data => {
       this.tryLoad = true;
       this.movies.push(...data["Search"]);
+      // if (window.innerWidth - document.documentElement.clientWidth == 0) {
+      //   this.getMovies();
+      // }
     });
   }
 }
