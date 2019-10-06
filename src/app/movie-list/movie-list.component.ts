@@ -17,12 +17,14 @@ export class MovieListComponent implements OnInit {
       this.movieService.getMovies();
     }
   }
+  @HostListener("window:resize", ["$event"])
   @HostListener("window:scroll", ["$event"])
   listeningScroll(event) {
     if (this.scrollCond()) {
       this.movieService.getMovies();
     }
   }
+
   get movieListID(): any {
     return document.getElementById("movieList");
   }
@@ -30,16 +32,15 @@ export class MovieListComponent implements OnInit {
     return window.innerHeight + window.scrollY >= this.movieListID.offsetHeight;
   }
   get movieList(): MovieInList[] {
-    return this.movieService.movies;
-    // this.tryLoad = false;
-    // this.pageCount++;
-    // this.movieService.getMovies(this.pageCount).subscribe(data => {
-    //   this.tryLoad = true;
-    //   this.movies.push(...data["Search"]);
-    //   // if (window.innerWidth - document.documentElement.clientWidth == 0) {
-    //   //   this.getMovies();
-    //   // }
-    // });
+    let movies = this.movieService.movies;
+    if (movies.length > 0) {
+      setTimeout(() => {
+        if (window.innerWidth - document.documentElement.clientWidth == 0) {
+          this.movieService.getMovies();
+        }
+      });
+    }
+    return movies;
   }
   goDetail(id) {
     this.router.navigateByUrl("movie/" + id);
