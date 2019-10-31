@@ -1,6 +1,6 @@
 <div id="movieList" class="container mt-5">
   <h1 *ngIf="error" class="error">{{ error.message }}</h1>
-  <ng-container *ngIf="movieList; else elseTemplate">
+  <ng-container *ngIf="movieList">
     <div class="row" style="justify-content: center;align-self: center;">
       <div
         *ngFor="let movie of movieList"
