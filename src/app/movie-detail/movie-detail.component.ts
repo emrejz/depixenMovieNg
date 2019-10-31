@@ -19,6 +19,9 @@ export class MovieDetailComponent implements OnInit {
       this.movieService.getMovieDetail(id);
     });
   }
+  get error() {
+    return this.movieService.error;
+  }
   get movie() {
     return this.movieService.movieDetail;
   }

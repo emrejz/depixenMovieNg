@@ -24,7 +24,12 @@ export class MovieListComponent implements OnInit {
       this.movieService.getMovies();
     }
   }
-
+  get error() {
+    return this.movieService.error;
+  }
+  get load() {
+    return this.movieService.tryLoad;
+  }
   get movieListID(): any {
     return document.getElementById("movieList");
   }
